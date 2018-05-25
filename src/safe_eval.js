@@ -23,7 +23,9 @@ export const evalValue = (evalString) => {
 };
 
 export default ({ resultString, stringToEval }, filePath) => {
-  const fullFilePath = path.join(process.cwd(), filePath);
+  const fullFilePath = path.isAbsolute(filePath)
+    ? filePath
+    : path.join(process.cwd(), filePath);
   const actual = evalExpression(resultString, fullFilePath);
   const expected = evalValue(stringToEval);
   return { actual, expected };

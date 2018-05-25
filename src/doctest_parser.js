@@ -58,7 +58,13 @@ export default (text) => {
   });
 
   // ignore multi-line comment start
-  lexer.addRule(/\n \* /, () => {});
+  lexer.addRule(/\n \* /, () => {
+    if (state === IN_EXAMPLE) {
+      doctests[doctestIndex].resultString += '\n';
+    } else if (state === IN_RETURN_VALUE) {
+      doctests[doctestIndex].stringToEval += '\n';
+    }
+  });
 
   // add chars to appropriate section
   lexer.addRule(/\n|./, (lexme) => {

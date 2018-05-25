@@ -3,7 +3,9 @@ import path from 'path';
 
 export const evalExpression = (evalString, filePath) => {
   try {
-    const code = `require('${filePath}').${evalString}`;
+    // eslint-disable-next-line global-require,import/no-dynamic-require,no-unused-vars
+    const module = require(filePath);
+    const code = `module.${evalString}`;
     const result = eval(code);
     return { result };
   } catch (error) {

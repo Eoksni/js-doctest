@@ -1,12 +1,13 @@
 /* eslint no-eval: "off", no-console: "off" */
 import path from 'path';
+import nodeEval from 'node-eval';
 
 export const evalExpression = (evalString, filePath) => {
   try {
     // eslint-disable-next-line global-require,import/no-dynamic-require,no-unused-vars
-    const module = require(filePath);
-    const code = `module.${evalString}`;
-    const result = eval(code);
+    const moduleObj = require(filePath);
+    const code = `${evalString}`;
+    const result = nodeEval(code, filePath, moduleObj);
     return { result };
   } catch (error) {
     return { error };

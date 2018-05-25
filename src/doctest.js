@@ -15,6 +15,10 @@ const defaultTestingFunction = (actual, expected, doctest) => {
 export default (filePath, options = {}) => {
   const file = fs.readFileSync(filePath, 'utf8');
   const doctests = parseDoctests(file);
+  if (process.env.DEBUG) {
+    // eslint-disable-next-line no-console
+    console.dir(doctests);
+  }
   doctests.forEach((doctest, index) => {
     const { actual, expected } = evalDoctest(doctest, filePath);
 

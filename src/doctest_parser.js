@@ -51,7 +51,7 @@ export default (text) => {
   });
 
   // begin doctest return value
-  lexer.addRule(/\/\/=>/, () => {
+  lexer.addRule(/\/\/\s{0,1}=>/, () => {
     if (state === IN_EXAMPLE) {
       state = IN_RETURN_VALUE;
     }
